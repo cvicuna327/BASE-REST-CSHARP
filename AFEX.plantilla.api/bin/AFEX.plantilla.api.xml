@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AFEX.plantilla.api</name>
+    </assembly>
+    <members>
+        <member name="T:AFEX.plantilla.api.Controllers.CustomersController">
+            <summary>
+            customer controller class for testing security token
+            </summary>
+        </member>
+        <member name="T:AFEX.plantilla.api.Controllers.LoginController">
+            <summary>
+            login controller class for authenticate users
+            </summary>
+        </member>
+        <member name="T:AFEX.plantilla.api.Controllers.TokenGenerator">
+            <summary>
+            JWT Token generator class using "secret-key"
+            more info: https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+            </summary>
+        </member>
+        <member name="T:AFEX.plantilla.api.Controllers.TokenValidationHandler">
+            <summary>
+            Token validator for Authorization Request using a DelegatingHandler
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AutenticarLDAP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aplicacion" type="tns:AplicacionAuth" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="AplicacionAuth">
+        <s:restriction base="s:string">
+          <s:enumeration value="AfexWeb" />
+          <s:enumeration value="MoneyGram" />
+          <s:enumeration value="AfexChangeMESA" />
+          <s:enumeration value="Afexpress" />
+          <s:enumeration value="CumplimientoWEB" />
+          <s:enumeration value="Eafex" />
+          <s:enumeration value="AFEXpressWEB" />
+          <s:enumeration value="Facturador" />
+          <s:enumeration value="MantenedoresGiros" />
+          <s:enumeration value="AFEXchangeGIROS" />
+          <s:enumeration value="CartolaIntegral" />
+          <s:enumeration value="AFEXPal" />
+          <s:enumeration value="GestionInformatica" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AutenticarLDAPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AutenticarLDAPResult" type="tns:ArrayOfUsuarioAplicacion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUsuarioAplicacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UsuarioAplicacion" type="tns:UsuarioAplicacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UsuarioAplicacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Firma" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidarFirma">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firma" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidarFirmaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ValidarFirmaResult" type="tns:ValidacionAuth" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ValidacionAuth">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsAuth" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AutenticarLDAPSoapIn">
+    <wsdl:part name="parameters" element="tns:AutenticarLDAP" />
+  </wsdl:message>
+  <wsdl:message name="AutenticarLDAPSoapOut">
+    <wsdl:part name="parameters" element="tns:AutenticarLDAPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidarFirmaSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidarFirma" />
+  </wsdl:message>
+  <wsdl:message name="ValidarFirmaSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidarFirmaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IESB_AV_ServicioAuthSoap">
+    <wsdl:operation name="AutenticarLDAP">
+      <wsdl:input message="tns:AutenticarLDAPSoapIn" />
+      <wsdl:output message="tns:AutenticarLDAPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarFirma">
+      <wsdl:input message="tns:ValidarFirmaSoapIn" />
+      <wsdl:output message="tns:ValidarFirmaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IESB_AV_ServicioAuthSoap" type="tns:IESB_AV_ServicioAuthSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AutenticarLDAP">
+      <soap:operation soapAction="http://tempuri.org/AutenticarLDAP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarFirma">
+      <soap:operation soapAction="http://tempuri.org/ValidarFirma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IESB_AV_ServicioAuthSoap12" type="tns:IESB_AV_ServicioAuthSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AutenticarLDAP">
+      <soap12:operation soapAction="http://tempuri.org/AutenticarLDAP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarFirma">
+      <soap12:operation soapAction="http://tempuri.org/ValidarFirma" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IESB_AV_ServicioAuth">
+    <wsdl:port name="IESB_AV_ServicioAuthSoap" binding="tns:IESB_AV_ServicioAuthSoap">
+      <soap:address location="http://aplica-ng:9005/IESB_AV_ServicioAuth.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IESB_AV_ServicioAuthSoap12" binding="tns:IESB_AV_ServicioAuthSoap12">
+      <soap12:address location="http://aplica-ng:9005/IESB_AV_ServicioAuth.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
